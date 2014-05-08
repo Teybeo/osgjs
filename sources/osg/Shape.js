@@ -649,6 +649,7 @@ define( [
         createTexturedBox: createTexturedBox,
         createTexturedQuad: createTexturedQuad,
         createAxisGeometry: createAxisGeometry,
-        createTexturedSphere: createTexturedSphere
+        createTexturedSphere: createTexturedSphere,
+        createTexturedSphereGeometry: createTexturedSphere
     };
 } );
