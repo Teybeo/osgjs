@@ -51,26 +51,22 @@ function getPostSceneBloom( sceneTexture, bloomTextureFactor ) {
 
             // Definition of luminance from http://en.wikipedia.org/wiki/Luma_%28video%29
             'float calcLuminance(vec3 pixel) {',
-            '   #ifdef USE_LINEAR_SPACE',
-            '       pixel = pow(pixel, vec3(2.2));',
-            '       return pow(max(dot(pixel, vec3(0.2126, 0.7152, 0.0722)), 0.001), 1.0/2.2);',
-            '   #else',
-            '      return max(dot(pixel, vec3(0.2126, 0.7152, 0.0722)), 0.001);',
-            '   #endif',
+            '   return dot(pixel, vec3(0.2126, 0.7152, 0.0722));',
             '}',
-
             'void main(void) {',
-            '',
-            '   vec4 color = texture2D( Texture0, FragTexCoord0);',
+
+            '    vec4 color = texture2D( Texture0, FragTexCoord0);',
+               
+            '    #ifdef USE_LINEAR_SPACE',
+            '       color = pow(color, vec4(2.2));',
+            '   #endif',
+               
             '   vec3 result = vec3(0);',
-            '',
+
             // Keep only the pixels whose luminance is above threshold
             '   if (calcLuminance(color.rgb) > threshold)',
             '      result = color.rgb;',
-            '',
-            '   #ifdef USE_LINEAR_SPACE',
-            '       result = pow(result, vec3(2.2));',
-            '   #endif',
+
             '   gl_FragColor = vec4(result, 1.0);',
 
             '}',
